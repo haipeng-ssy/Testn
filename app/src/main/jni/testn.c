@@ -1,8 +1,9 @@
 #include <string.h>
 #include <jni.h>
+#include <sum.h>
 jstring
 Java_com_example_testn_Testn_stringfromTestnJNI(
-	JNIEnv *env,jobject thiz	){
+	JNIEnv *env,jobject thiz){
 #if defined(__arm__)
   #if defined(__ARM_ARCH_7A__)
     #if defined(__ARM_NEON__)
@@ -51,8 +52,10 @@ JNIEnv *env,jobject obj,jintArray array){
    int i;
    for(i=0;i<length;i++)
    {
-      sum +=pointer[i];//相加每个素组元素
+      sum = getMySum(sum,pointer[i]);
    }
+
+
    (*env)->ReleaseIntArrayElements(env,array,pointer,0);//释放内存
    return sum;
 }
